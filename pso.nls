@@ -1,3 +1,38 @@
-to initialise
+breed [particles particle]
+
+particles-own
+[
+    total_best 
+    current 
+    social-direction
+    indi-direction
+    own-best
+]
+
+to initialize
+
+  repeat 10 [ diffuse pcolor 0.4 ]
+  create-particles num-particles[
+    set color blue
+    setxy random-pxcor random-pycor
+    set total_best [0 0 0]
+    set current [0 0 0]
+    set own-best [0 0 0]
+  ]
   
+end
+
+to psa
+    ask particles[
+        let dice random 3
+        let change (dice - 1)
+        forward 1
+        set heading (heading + change * 2 )
+        if(first total_best - first current < 0)[
+          ask particles [ set total_best current ]
+         if (first own-best - first current < 0)[
+            set own-best current
+          ]
+        ]
+    ]
 end
