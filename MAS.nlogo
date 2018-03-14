@@ -71,7 +71,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-3.2
+10.0
 0.1
 1
 NIL
@@ -179,7 +179,7 @@ c1
 c1
 0
 5
-2.04
+0.02
 0.01
 1
 NIL
@@ -194,7 +194,7 @@ c2
 c2
 0
 5
-2.08
+0.83
 0.01
 1
 NIL
@@ -226,7 +226,7 @@ c0
 c0
 0
 1
-0.51
+0.16
 0.01
 1
 NIL

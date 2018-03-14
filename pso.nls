@@ -40,7 +40,7 @@ to psa
     let c2r c2 * (random-float 1)
     let sum_consts c1r + c2r
     let c1n (c1r / sum_consts) * 2
-    let c2n (c1r / sum_consts) * 2
+    let c2n (c2r / sum_consts) * 2
     let vx (c0 * (item 0 velocity)) + (c1n * ((item 0 own_best) - curx)) + (c2n * ((item 0 total_best) - curx))
     let vy (c0 * (item 1 velocity)) + (c1n * ((item 1 own_best) - cury)) + (c2n * ((item 1 total_best) - cury))
     set velocity (list vx vy)
@@ -49,6 +49,6 @@ to psa
     if ((headx != curx) and (heady != cury)) [
      set heading towardsxy headx heady 
     ]
-    fd (sqrt ((vx ^ 2) + (vy ^ 2))) / 10
+    fd (sqrt ((vx ^ 2) + (vy ^ 2)))
   ]
 end
