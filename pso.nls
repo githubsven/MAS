@@ -2,37 +2,53 @@ breed [particles particle]
 
 particles-own
 [
-    total_best 
-    current 
-    social-direction
-    indi-direction
-    own-best
+  total_best 
+  own_best  
+  current
+  velocity
 ]
 
-to initialize
+to init_pso
 
-  repeat 10 [ diffuse pcolor 0.4 ]
   create-particles num-particles[
-    set color blue
+    set color random-float 140
     setxy random-pxcor random-pycor
-    set total_best [0 0 0]
-    set current [0 0 0]
-    set own-best [0 0 0]
+    set total_best (list 0 0 0)
+    set current (list 0 0 0)
+    set own_best (list 0 0 0)
+    set velocity (list 0 0)
   ]
   
 end
 
 to psa
-    ask particles[
-        let dice random 3
-        let change (dice - 1)
-        forward 1
-        set heading (heading + change * 2 )
-        if(first total_best - first current < 0)[
-          ask particles [ set total_best current ]
-         if (first own-best - first current < 0)[
-            set own-best current
-          ]
+  ask particles[
+    let curx xcor
+    let cury ycor
+    let pscore 0
+    ask patch-here [set pscore score]
+    set current (list curx cury pscore)
+    if (pscore > item 2 own_best) [
+      set own_best current
+      if (pscore > item 2 total_best) [
+        ask particles [
+          set total_best (list curx cury pscore)
         ]
+      ]
     ]
+    let c1r c1 * (random-float 1)
+    let c2r c2 * (random-float 1)
+    let sum_consts c1r + c2r
+    let c1n (c1r / sum_consts) * 2
+    let c2n (c1r / sum_consts) * 2
+    let vx (c0 * (item 0 velocity)) + (c1n * ((item 0 own_best) - curx)) + (c2n * ((item 0 total_best) - curx))
+    let vy (c0 * (item 1 velocity)) + (c1n * ((item 1 own_best) - cury)) + (c2n * ((item 1 total_best) - cury))
+    set velocity (list vx vy)
+    let headx vx + curx
+    let heady vy + cury
+    if ((headx != curx) and (heady != cury)) [
+     set heading towardsxy headx heady 
+    ]
+    fd (sqrt ((vx ^ 2) + (vy ^ 2))) / 10
+  ]
 end
