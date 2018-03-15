@@ -117,7 +117,7 @@ BUTTON
 172
 245
 NIL
-step
+go
 NIL
 1
 T

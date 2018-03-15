@@ -14,6 +14,11 @@ employees-own
   foodsource_found
 ]
 
+foodsources-own
+[
+ resources 
+]
+
 globals
 [
   no_bees ;Number of bees in the ABC
@@ -25,7 +30,7 @@ globals
 ]
 
 to init
-  set no_bees 20
+  set no_bees 10
   set no_onlookers no_bees / 2 ;50% of the swarm according to D. Karaboga's implementation https://abc.erciyes.edu.tr/pub/tr06_2005.pdf
   set no_employees no_bees / 2 ;Idem
   set no_scouts 1 ;Idem
@@ -40,7 +45,7 @@ to init
     set ycor 0
   ]
   
-  create-foodsources no_employees ; Create a food source for every employed bee
+  create-foodsources no_employees [set resources random 10]; Create a food source for every employed bee
   ask foodsources [ set shape "x" set color red setxy random-pxcor random-pycor]
   
   let i (no_onlookers + no_scouts)
@@ -86,39 +91,47 @@ ask max-one-of employees [best_found_patch_personal]
     [ stop ]
 end
 
+to recruitOnlookers
+  let totalFitness 0
+  ask employees [ set totalFitness totalFitness + fitness ]
+  
+  let employee-list [self] of employees
+  
+  ask onlookers [
+    let cumFitness 0
+    let r random totalFitness
+    foreach employee-list [
+      [a] -> set cumFitness cumFitness + [ fitness ] of a
+      show cumFitness
+      if r < cumFitness [
+        show r
+        ask self [ set breed employees ]
+        set foodsource_x [ foodsource_x ] of a
+        set foodsource_y [ foodsource_y ] of a
+        set foodsource_found false
+        set color red
+        set size 1.5
+      ]
+    ] 
+  ]
+end
+
 to go
   ask employees [ 
     ; face in the direction of my velocity
     ifelse foodsource_found = false [ 
-      facexy foodsource_x foodsource_y
+      setxy foodsource_x foodsource_y
+      set fitness [ score ] of patch foodsource_x foodsource_y
     ]
     [ 
-      facexy 0 0
+      setxy 0 0
+      recruitOnlookers
+      set foodsource_found false
     ]
-    ; and move forward by the magnitude of my velocity
-    forward 1
     ;move-to patch foodsource_x foodsource_y 
-    if xcor = foodsource_x and ycor = foodsource_y [
+    if round(xcor) = foodsource_x and round(ycor) = foodsource_y [
       set foodsource_found true
     ]
   ]
   tick
-end
-
-to step
-  ask employees [ 
-    ; face in the direction of my velocity
-    ifelse foodsource_found = false [ 
-      facexy foodsource_x foodsource_y
-    ]
-    [ 
-      facexy 0 0
-    ]
-    ; and move forward by the magnitude of my velocity
-    forward 1
-    ;move-to patch foodsource_x foodsource_y 
-    if xcor = foodsource_x and ycor = foodsource_y [
-      set foodsource_found true
-    ]
-  ]
 end
