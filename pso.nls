@@ -1,3 +1,5 @@
+__includes["tournament.nls"]
+
 breed [particles particle]
 
 particles-own

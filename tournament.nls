@@ -1,0 +1,52 @@
+globals
+[
+  roundspassed
+  pso_total
+  abc_total
+  pso_wins
+  abc_wins
+  pso_lastround
+  abc_lastround
+]
+
+to tournament
+  set roundspassed 0
+  set pso_total 0
+  set abc_total 0
+  while [roundspassed < Rounds]
+  [
+    set roundspassed roundspassed + 1
+    setup
+    do_round
+    print roundspassed
+  ]  
+end
+
+to do_round
+  psa
+  ask particles[
+    set pso_lastround item 2 total_best
+  ]
+  set pso_total pso_total + pso_lastround 
+  
+  abc
+  
+  ;ask max-one-of employees [best_found_patch_personal]
+  ;[
+  ;  set abc_lastround best_found_patch_global
+  ;]
+  
+  if pso_lastround > abc_lastround
+  [ 
+    set pso_wins pso_wins + 1
+    print "pso wins"
+  ]
+  if abc_lastround > pso_lastround
+  [ 
+    set abc_wins abc_wins + 1
+    print "abc wins"
+  ]
+  if abc_lastround = pso_lastround
+  [ print "tie"]
+   
+end

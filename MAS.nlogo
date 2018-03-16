@@ -1,4 +1,5 @@
 __includes ["abc.nls"]
+
 patches-own
 [
   score ;Fitness score of a patch
@@ -71,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-10.0
+1.8
 0.1
 1
 NIL
@@ -137,7 +138,7 @@ num-particles
 num-particles
 0
 100
-20.0
+10.0
 1
 1
 NIL
@@ -179,7 +180,7 @@ c1
 c1
 0
 5
-0.02
+1.24
 0.01
 1
 NIL
@@ -194,7 +195,7 @@ c2
 c2
 0
 5
-0.83
+0.78
 0.01
 1
 NIL
@@ -226,8 +227,40 @@ c0
 c0
 0
 1
-0.16
+0.22
 0.01
+1
+NIL
+HORIZONTAL
+
+BUTTON
+4
+452
+133
+485
+Start Tournament
+tournament
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+2
+492
+174
+525
+Rounds
+Rounds
+0
+100
+1.0
+1
 1
 NIL
 HORIZONTAL
