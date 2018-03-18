@@ -1,6 +1,5 @@
 globals
 [
-  roundspassed
   pso_total
   abc_total
   pso_wins
@@ -10,16 +9,22 @@ globals
 ]
 
 to tournament
-  set roundspassed 0
-  set pso_total 0
-  set abc_total 0
+  let roundspassed 0
+  ;set pso_total 0
+  ;set abc_total 0
   while [roundspassed < Rounds]
   [
     set roundspassed roundspassed + 1
     setup
     do_round
-    print roundspassed
   ]  
+  
+  print "pso total is"
+  print pso_total
+  print "number of pso wins is"
+  print pso_wins
+  print "number of rounds passed is"
+  print roundspassed
 end
 
 to do_round
@@ -27,6 +32,7 @@ to do_round
   ask particles[
     set pso_lastround item 2 total_best
   ]
+  print pso_lastround 
   set pso_total pso_total + pso_lastround 
   
   abc
@@ -39,14 +45,15 @@ to do_round
   if pso_lastround > abc_lastround
   [ 
     set pso_wins pso_wins + 1
-    print "pso wins"
+    ;print "pso wins"
   ]
   if abc_lastround > pso_lastround
   [ 
     set abc_wins abc_wins + 1
-    print "abc wins"
+    ;print "abc wins"
   ]
   if abc_lastround = pso_lastround
-  [ print "tie"]
+  [ ;print "tie"
+  ]
    
 end

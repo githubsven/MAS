@@ -259,7 +259,7 @@ Rounds
 Rounds
 0
 100
-1.0
+10.0
 1
 1
 NIL
