@@ -275,7 +275,7 @@ no_bees
 2
 50
 50.0
-1
+2
 1
 NIL
 HORIZONTAL

@@ -35,22 +35,7 @@ to tournament
   [ ;print "tie"
   ]
     
-  ]  
-  
-  
-  if pso_lastround > abc_lastround
-  [ 
-    set pso_wins pso_wins + 1
-    ;print "pso wins"
-  ]
-  if abc_lastround > pso_lastround
-  [ 
-    set abc_wins abc_wins + 1
-    ;print "abc wins"
-  ]
-  if abc_lastround = pso_lastround
-  [ ;print "tie"
-  ]
+  ] 
   
   print "pso total is"
   print pso_total
