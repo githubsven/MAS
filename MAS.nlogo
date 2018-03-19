@@ -64,26 +64,26 @@ ticks
 30.0
 
 SLIDER
-6
-50
-223
-83
+4
+175
+221
+208
 searchspace-smoothness
 searchspace-smoothness
 0
 10
-1.8
+4.6
 0.1
 1
 NIL
 HORIZONTAL
 
 BUTTON
-8
-10
-90
-43
-setup
+4
+138
+86
+171
+Setup
 setup
 NIL
 1
@@ -96,9 +96,9 @@ NIL
 1
 
 BUTTON
-97
+7
 10
-182
+92
 43
 Run ABC
 abc
@@ -113,11 +113,11 @@ NIL
 1
 
 BUTTON
-109
-212
-172
-245
-NIL
+100
+10
+187
+43
+Step ABC
 go
 NIL
 1
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-10.0
+0.0
 1
 1
 NIL
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-1.37
+0.0
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.98
+0.0
 0.01
 1
 NIL
@@ -227,7 +227,7 @@ c0
 c0
 0
 1
-0.22
+0.0
 0.01
 1
 NIL
@@ -259,7 +259,22 @@ Rounds
 Rounds
 0
 100
-6.0
+0.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+6
+48
+178
+81
+no_bees
+no_bees
+2
+50
+50.0
 1
 1
 NIL
