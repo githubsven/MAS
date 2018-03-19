@@ -21,7 +21,7 @@ foodsources-own
 
 globals
 [
-  no_bees ;Number of bees in the ABC
+  ;no_bees ;Number of bees in the ABC
   limit ;Limit of onlooker bees
   no_onlookers
   no_employees
@@ -30,7 +30,7 @@ globals
 ]
 
 to init
-  set no_bees 10
+  ;set no_bees 10
   set no_onlookers no_bees / 2 ;50% of the swarm according to D. Karaboga's implementation https://abc.erciyes.edu.tr/pub/tr06_2005.pdf
   set no_employees no_bees / 2 ;Idem
   set no_scouts 1 ;Idem
@@ -96,24 +96,26 @@ to recruitOnlookers
   ask employees [ set totalFitness totalFitness + fitness ]
   
   let employee-list [self] of employees
+  let onlooker-list [self] of onlookers
   
-  ask onlookers [
-    let cumFitness 0
-    let r random totalFitness
-    foreach employee-list [
-      [a] -> set cumFitness cumFitness + [ fitness ] of a
-      show cumFitness
-      if r < cumFitness [
-        show r
-        ask self [ set breed employees ]
+  let cumFitness 0
+  foreach employee-list [
+    [a] -> set cumFitness cumFitness + [ fitness ] of a
+    foreach onlooker-list [
+      [b] -> show b
+      let r random totalFitness
+      show r
+      if r <= cumFitness [
+        ask b [ set breed employees 
         set foodsource_x [ foodsource_x ] of a
         set foodsource_y [ foodsource_y ] of a
         set foodsource_found false
         set color red
         set size 1.5
+        ]
       ]
-    ] 
-  ]
+    ]
+  ] 
 end
 
 to go
