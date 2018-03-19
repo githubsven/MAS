@@ -99,16 +99,15 @@ to recruitOnlookers
   let onlooker-list [self] of onlookers
   
   let cumFitness 0
-  foreach employee-list [
-    [a] -> set cumFitness cumFitness + [ fitness ] of a
-    foreach onlooker-list [
-      [b] -> show b
-      let r random totalFitness
-      show r
-      if r <= cumFitness [
-        ask b [ set breed employees 
-        set foodsource_x [ foodsource_x ] of a
-        set foodsource_y [ foodsource_y ] of a
+  foreach onlooker-list [
+    [a] -> set cumFitness 0
+    let r random-float totalFitness
+    foreach employee-list [
+      [b] -> set cumFitness cumFitness + [ fitness ] of b
+      if r <= cumFitness and [breed] of a = onlookers[
+        ask a [ set breed employees 
+        set foodsource_x [ foodsource_x ] of b
+        set foodsource_y [ foodsource_y ] of b
         set foodsource_found false
         set color red
         set size 1.5
