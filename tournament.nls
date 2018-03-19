@@ -46,16 +46,17 @@ to tournament
 end
 
 to do_round
-  psa
+  repeat no_ticks [ psa ]
   ask particles[
     set pso_lastround item 2 total_best
   ]
-  print pso_lastround  
   
-  abc  
+  
+  repeat no_ticks [ abc ]  
   ask max-one-of employees [best_found_patch_personal]
   [
     set abc_lastround best_found_patch_global
   ]
    
+  print (word "PSO score: " pso_lastround  " ABC score: " abc_lastround)
 end

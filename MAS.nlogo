@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-0.0
+20.0
 1
 1
 NIL
@@ -146,9 +146,9 @@ HORIZONTAL
 
 BUTTON
 5
-409
+414
 82
-442
+447
 Run pso
 psa
 T
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-0.0
+5.0
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.0
+0.3
 0.01
 1
 NIL
@@ -203,9 +203,9 @@ HORIZONTAL
 
 BUTTON
 86
-409
+414
 149
-442
+447
 step
 psa
 NIL
@@ -227,7 +227,7 @@ c0
 c0
 0
 1
-0.0
+0.17
 0.01
 1
 NIL
@@ -259,7 +259,7 @@ Rounds
 Rounds
 0
 100
-0.0
+42.0
 1
 1
 NIL
@@ -272,10 +272,25 @@ SLIDER
 81
 no_bees
 no_bees
-2
+0
 50
-50.0
+14.0
 2
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2
+532
+174
+565
+no_ticks
+no_ticks
+0
+100
+42.0
+1
 1
 NIL
 HORIZONTAL

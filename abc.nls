@@ -33,7 +33,9 @@ to init
   ;set no_bees 10
   set no_onlookers no_bees / 2 ;50% of the swarm according to D. Karaboga's implementation https://abc.erciyes.edu.tr/pub/tr06_2005.pdf
   set no_employees no_bees / 2 ;Idem
-  set no_scouts 1 ;Idem
+  if no_bees > 0 [
+    set no_scouts 1 ;Idem
+  ]
   
   create-onlookers no_onlookers[ set color yellow ]
   create-scouts no_scouts [ set color blue ]
