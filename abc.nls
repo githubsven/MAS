@@ -125,6 +125,7 @@ to go
     ifelse foodsource_found = false [ 
       setxy foodsource_x foodsource_y
       set fitness [ score ] of patch foodsource_x foodsource_y
+      localsearch
     ]
     [ 
       setxy 0 0
@@ -140,5 +141,51 @@ to go
 end
 
 to localsearch
-  
+  ask employees [
+    let best_found_fitness [ score ] of patch foodsource_x foodsource_y
+    let best_x foodsource_x
+    let best_y foodsource_y
+    if [score] of patch (foodsource_x - 1) foodsource_y > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x - 1) foodsource_y
+      set best_x foodsource_x - 1
+      set best_y foodsource_y 
+    ]
+    if [score] of patch (foodsource_x + 1) foodsource_y > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x + 1) foodsource_y
+      set best_x foodsource_x + 1
+      set best_y foodsource_y
+    ]
+    if [score] of patch (foodsource_x - 1) foodsource_y - 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x - 1) (foodsource_y - 1)
+      set best_x foodsource_x - 1
+      set best_y foodsource_y - 1
+    ]
+    if [score] of patch (foodsource_x) foodsource_y - 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x) (foodsource_y - 1)
+      set best_x foodsource_x
+      set best_y foodsource_y - 1
+    ]
+    if [score] of patch (foodsource_x + 1) foodsource_y - 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x + 1) (foodsource_y - 1)
+      set best_x foodsource_x + 1
+      set best_y foodsource_y - 1
+    ]
+    if [score] of patch (foodsource_x - 1) foodsource_y + 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x - 1) (foodsource_y + 1)
+      set best_x foodsource_x - 1
+      set best_y foodsource_y + 1
+    ]
+    if [score] of patch (foodsource_x) foodsource_y + 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x) (foodsource_y + 1)
+      set best_x foodsource_x
+      set best_y foodsource_y + 1
+    ]
+    if [score] of patch (foodsource_x + 1) foodsource_y + 1 > best_found_fitness [ 
+      set best_found_fitness [score] of patch (foodsource_x + 1) (foodsource_y + 1)
+      set best_x foodsource_x + 1
+      set best_y foodsource_y + 1
+    ]
+    set foodsource_x best_x
+    set foodsource_y best_y
+  ]
 end
