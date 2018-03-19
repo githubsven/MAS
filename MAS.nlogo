@@ -295,6 +295,21 @@ no_ticks
 NIL
 HORIZONTAL
 
+SLIDER
+28
+96
+200
+129
+localsearch_steps
+localsearch_steps
+0
+10
+7.0
+1
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 ## WHAT IS IT?
 
