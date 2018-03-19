@@ -10,8 +10,13 @@ particles-own
   velocity
 ]
 
-to init_pso
+globals
+[
+  psa_best
+]
 
+to init_pso
+  set psa_best 0
   create-particles num-particles[
     set color random-float 140
     setxy random-pxcor random-pycor
@@ -33,6 +38,7 @@ to psa
     if (pscore > item 2 own_best) [
       set own_best current
       if (pscore > item 2 total_best) [
+        set psa_best pscore
         ask particles [
           set total_best (list curx cury pscore)
         ]
@@ -43,8 +49,10 @@ to psa
     let sum_consts c1r + c2r
     let c1n (c1r / sum_consts) * 2
     let c2n (c2r / sum_consts) * 2
-    let vx (c0 * (item 0 velocity)) + (c1n * ((item 0 own_best) - curx)) + (c2n * ((item 0 total_best) - curx))
-    let vy (c0 * (item 1 velocity)) + (c1n * ((item 1 own_best) - cury)) + (c2n * ((item 1 total_best) - cury))
+    let vx2 (c0 * (item 0 velocity)) + (c1n * ((item 0 own_best) - curx)) + (c2n * ((item 0 total_best) - curx))
+    let vy2 (c0 * (item 1 velocity)) + (c1n * ((item 1 own_best) - cury)) + (c2n * ((item 1 total_best) - cury))
+    let vx min (list (max (list -10 vx2)) 10)
+    let vy min (list (max (list -10 vy2)) 10)
     set velocity (list vx vy)
     let headx vx + curx
     let heady vy + cury

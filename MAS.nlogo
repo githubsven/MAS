@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.3
+0.05
 0.01
 1
 NIL
@@ -294,6 +294,17 @@ no_ticks
 1
 NIL
 HORIZONTAL
+
+MONITOR
+183
+477
+247
+522
+NIL
+psa_best
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
