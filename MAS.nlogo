@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-20.0
+19.0
 1
 1
 NIL
@@ -259,7 +259,7 @@ Rounds
 Rounds
 0
 100
-42.0
+100.0
 1
 1
 NIL
@@ -289,7 +289,7 @@ no_ticks
 no_ticks
 0
 100
-42.0
+100.0
 1
 1
 NIL

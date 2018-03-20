@@ -37,8 +37,7 @@ to tournament
     
   ] 
   
-  print "pso total is"
-  print pso_total
+  print (word "PSO total is: " pso_total  " ABC total is: " abc_total)
   print "number of pso wins is"
   print pso_wins
   print "number of rounds passed is"
@@ -46,17 +45,18 @@ to tournament
 end
 
 to do_round
+  
   repeat no_ticks [ psa ]
   ask particles[
     set pso_lastround item 2 total_best
   ]
-  
-  
+    
   repeat no_ticks [ abc ]  
-  ask max-one-of employees [best_found_patch_personal]
+  ask max-one-of employees [fitness]
   [
-    set abc_lastround best_found_patch_global
+      set abc_lastround fitness
   ]
+  
    
   print (word "PSO score: " pso_lastround  " ABC score: " abc_lastround)
 end

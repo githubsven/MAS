@@ -144,8 +144,8 @@ to localsearch
   ask employees [
     let current-patch patch-here
     let best_found_fitness [ score ] of patch foodsource_x foodsource_y
-    show best_found_fitness
-    show [score] of current-patch
+    ;show best_found_fitness
+    ;show [score] of current-patch
     if [score] of current-patch > best_found_fitness[
     ]
     let best_x foodsource_x
