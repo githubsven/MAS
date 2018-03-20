@@ -118,7 +118,7 @@ BUTTON
 187
 43
 Step ABC
-go
+abc
 NIL
 1
 T
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-19.0
+0.0
 1
 1
 NIL
@@ -274,7 +274,7 @@ no_bees
 no_bees
 0
 50
-14.0
+6.0
 2
 1
 NIL
@@ -296,15 +296,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-28
-96
-200
-129
+6
+87
+178
+120
 localsearch_steps
 localsearch_steps
 0
 10
-7.0
+3.0
 1
 1
 NIL
