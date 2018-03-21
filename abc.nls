@@ -187,13 +187,15 @@ to go
     set size 1.5
     set foodsource_found true
     set fitness [ score ] of patch px_cor py_cor
-    hatch 1 [ ;create a foodsource on the random position
-      set breed foodsources
-      set shape "x" 
-      set size 1
-      set color red 
-      setxy px_cor py_cor  
-      set resources [round(score * 50) - 1] of patch px_cor py_cor 
+    if count foodsources with [ xcor = px_cor and ycor = py_cor] = 0 [
+      hatch 1 [ ;create a foodsource on the random position
+        set breed foodsources
+        set shape "x" 
+        set size 1
+        set color red 
+        setxy px_cor py_cor  
+        set resources [round(score * 50) - 1] of patch px_cor py_cor 
+      ]
     ]
   ]
 end
