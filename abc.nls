@@ -45,6 +45,7 @@ to init
     set size 1.5
     set xcor 0
     set ycor 0
+    set best_found_patch_personal 0
   ]
   
   create-foodsources no_employees [set resources random 10]; Create a food source for every employed bee
@@ -81,6 +82,7 @@ ask max-one-of employees [best_found_patch_personal]
       set best_found_patch_global best_found_patch_personal
     ]
   ]
+  print best_found_patch_global
   if best_found_patch_global = [score] of optimum
     [ stop ]
 end
@@ -103,6 +105,7 @@ to recruitOnlookers
           set breed employees 
           let uphill_x 0
           let uphill_y 0
+          set best_found_patch_personal 0
           hatch 1 [ ;create invisible turtle that can do uphill to find the new foodsource location
             setxy [foodsource_x ] of b [ foodsource_y ] of b;start at old foodsource
             repeat localsearch_steps [ uphill pcolor ] ;do uphill to find a better foodsource in the neighborhood
@@ -136,6 +139,9 @@ to go
       setxy foodsource_x foodsource_y
       ;repeat localsearch_steps [localsearch]
       set fitness [ score ] of patch foodsource_x foodsource_y
+      if fitness > best_found_patch_personal [
+       set best_found_patch_personal fitness 
+      ]
     ]
     [ 
       setxy 0 0
@@ -171,6 +177,7 @@ to go
     set foodsource_found true
     set foodsource_x px_cor
     set foodsource_y py_cor
+    set fitness [ score ] of patch px_cor py_cor
     hatch 1 [ ;create a foodsource on the random position
       set breed foodsources
       set shape "x" 
