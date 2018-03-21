@@ -143,10 +143,14 @@ end
 to go
   ask employees [ 
     ;move-to patch foodsource_x foodsource_y 
-    ifelse round(xcor) = foodsource_x and round(ycor) = foodsource_y [ ;takes advantage of teleporting bees
-      set foodsource_found true
+    ifelse foodsource_x = 0 and foodsource_y = 0 [
+      set foodsource_found false
     ] [
-      set foodsource_found false 
+      ifelse round(xcor) = foodsource_x and round(ycor) = foodsource_y[ ;takes advantage of teleporting bees
+        set foodsource_found true
+      ] [
+        set foodsource_found false 
+      ]
     ]
     
     ifelse foodsource_found = false [
