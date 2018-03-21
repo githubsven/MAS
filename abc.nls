@@ -27,9 +27,11 @@ globals
   no_employees
   no_scouts
   food_sources
+  no_fitness_improvement_counter
 ]
 
 to init
+  set no_fitness_improvement_counter 0
   ;set no_bees 10
   set no_onlookers no_bees / 2 ;50% of the swarm according to D. Karaboga's implementation https://abc.erciyes.edu.tr/pub/tr06_2005.pdf
   set no_employees no_bees / 2 ;Idem
@@ -75,15 +77,19 @@ to abc
 end
 
 to checkFitnessImprovement
-ask max-one-of employees [best_found_patch_personal]
-  [
-    if best_found_patch_global < best_found_patch_personal
+set no_fitness_improvement_counter no_fitness_improvement_counter + 1
+if count employees > 0 [
+    ask max-one-of employees [best_found_patch_personal]
     [
-      set best_found_patch_global best_found_patch_personal
+      if best_found_patch_global < best_found_patch_personal
+      [
+        set best_found_patch_global best_found_patch_personal
+        set no_fitness_improvement_counter 0
+      ]
     ]
   ]
-  print best_found_patch_global
-  if best_found_patch_global = [score] of optimum
+
+  if best_found_patch_global = [score] of optimum or no_fitness_improvement_counter >= 50
     [ stop ]
 end
 
@@ -112,12 +118,14 @@ to recruitOnlookers
             set uphill_x xcor
             set uphill_y ycor
             ;print (word "x: " uphillx " y: " uphilly)
-            hatch 1 [ ;create foodsource on the better spot
-              set breed foodsources
-              set shape "x" 
-              set color yellow 
-              setxy uphill_x uphill_y  
-              set resources [round(score * 50)] of patch xcor ycor 
+            if uphill_x != [ foodsource_x ] of b or uphill_y != [ foodsource_y ] of b [
+              hatch 1 [ ;create foodsource on the better spot
+                set breed foodsources
+                set shape "x" 
+                set color yellow 
+                setxy uphill_x uphill_y  
+                set resources [round(score * 50)] of patch xcor ycor 
+              ]
             ]
             die ;kill the invisible turtle
           ]
@@ -134,49 +142,50 @@ end
 
 to go
   ask employees [ 
-    ; face in the direction of my velocity
-    ifelse foodsource_found = false [ 
+    ;move-to patch foodsource_x foodsource_y 
+    ifelse round(xcor) = foodsource_x and round(ycor) = foodsource_y [ ;takes advantage of teleporting bees
+      set foodsource_found true
+    ] [
+      set foodsource_found false 
+    ]
+    
+    ifelse foodsource_found = false [
       setxy foodsource_x foodsource_y
-      ;repeat localsearch_steps [localsearch]
+      ask foodsources-on patch foodsource_x foodsource_y [ 
+        set resources resources - 1
+      ]
       set fitness [ score ] of patch foodsource_x foodsource_y
       if fitness > best_found_patch_personal [
        set best_found_patch_personal fitness 
       ]
-    ]
-    [ 
+    ] [
       setxy 0 0
       recruitOnlookers
-      set foodsource_found false
     ]
-    
-    ;move-to patch foodsource_x foodsource_y 
-    if round(xcor) != 0 or round(ycor) != 0 [ ;takes advantage of teleporting bees
-      set foodsource_found true
-      ask foodsources-on patch xcor ycor [ 
-        set resources resources - 1
-        let depleted_x xcor
-        let depleted_y ycor
-        if resources = 0 [ ;the foodsource is depleted
-          ask employees with [foodsource_x = depleted_x and foodsource_y = depleted_y ] [ ;make empoloyees that go to that foodsource scouts
-            set breed scouts
-            set color blue
-          ] 
-          die ;remove the depleted foodsource
-        ]
-      ]
+  ]
+  
+  ask foodsources [
+    if resources <= 0 [ ;the foodsource is depleted
+      let depleted_x xcor
+      let depleted_y ycor
+      ask employees with [foodsource_x = depleted_x and foodsource_y = depleted_y ] [ ;make empoloyees that go to that foodsource scouts
+        set breed scouts
+        set color blue
+      ] 
+      die ;remove the depleted foodsource
     ]
   ]
   
   ask scouts [
+    set breed employees ; use this random position as a new possible foodsource and become an empoloyee
     let px_cor random-pxcor
     let py_cor random-pycor
+    set foodsource_x px_cor
+    set foodsource_y py_cor
     setxy px_cor py_cor ; goto a random position
-    set breed employees ; use this random position as a new possible foodsource and become an empoloyee
     set color red 
     set size 1.5
     set foodsource_found true
-    set foodsource_x px_cor
-    set foodsource_y py_cor
     set fitness [ score ] of patch px_cor py_cor
     hatch 1 [ ;create a foodsource on the random position
       set breed foodsources
@@ -184,7 +193,7 @@ to go
       set size 1
       set color red 
       setxy px_cor py_cor  
-      set resources [round(score * 50) - 1] of patch xcor ycor 
+      set resources [round(score * 50) - 1] of patch px_cor py_cor 
     ]
   ]
 end
