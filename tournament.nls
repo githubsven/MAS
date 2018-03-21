@@ -47,9 +47,9 @@ to do_round
   ]
     
   repeat no_ticks [ abc ]  
-  ask max-one-of employees [fitness]
+  ask employees
   [
-      set abc_lastround fitness
+      set abc_lastround best_found_patch_global
   ]
   
    

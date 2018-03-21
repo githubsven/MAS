@@ -37,9 +37,9 @@ to create_problem_space ;Create a problem space
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-273
+254
 10
-710
+691
 448
 -1
 -1
@@ -72,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-4.6
+9.9
 0.1
 1
 NIL
@@ -309,6 +309,24 @@ localsearch_steps
 1
 NIL
 HORIZONTAL
+
+PLOT
+2
+571
+202
+721
+Fitness ABC
+Ticks
+Fitness value
+0.0
+10000.0
+0.0
+1.0
+false
+false
+"" ""
+PENS
+"default" 0.05 0 -16777216 true "" "plot best_found_patch_global"
 
 @#$#@#$#@
 ## WHAT IS IT?
