@@ -1,4 +1,4 @@
-__includes ["abc local.nls"]
+__includes ["abc.nls"]
 
 patches-own
 [
@@ -72,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-3.9
+0.0
 0.1
 1
 NIL
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-9.0
+0.0
 1
 1
 NIL
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-0.51
+0.0
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.43
+0.0
 0.01
 1
 NIL
@@ -227,7 +227,7 @@ c0
 c0
 0
 1
-0.25
+0.0
 0.01
 1
 NIL
@@ -259,7 +259,7 @@ Rounds
 Rounds
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -274,7 +274,7 @@ no_bees
 no_bees
 0
 50
-10.0
+0.0
 2
 1
 NIL
@@ -289,7 +289,7 @@ no_ticks
 no_ticks
 0
 100
-16.0
+0.0
 1
 1
 NIL
@@ -304,7 +304,7 @@ localsearch_steps
 localsearch_steps
 0
 10
-1.0
+0.0
 1
 1
 NIL
@@ -357,7 +357,7 @@ num-particlesP2
 num-particlesP2
 0
 100
-50.0
+0.0
 1
 1
 NIL
@@ -372,7 +372,7 @@ c0Player2
 c0Player2
 0
 1
-0.25
+0.0
 0.01
 1
 NIL
@@ -387,7 +387,7 @@ c1Player2
 c1Player2
 0
 1
-0.26
+0.0
 0.01
 1
 NIL
@@ -402,7 +402,7 @@ c2Player2
 c2Player2
 0
 1
-0.19
+0.0
 0.01
 1
 NIL
@@ -417,7 +417,7 @@ no_beesP2
 no_beesP2
 0
 50
-8.0
+0.0
 2
 1
 NIL
@@ -432,7 +432,7 @@ localsearch_stepsP2
 localsearch_stepsP2
 0
 10
-1.0
+0.0
 1
 1
 NIL
