@@ -1,16 +1,18 @@
 globals
 [
-  pso_lastround
-  abc_lastround
+  player1_lastround
+  player2_lastround
+  
+  
 ]
 
 to tournament
   let roundspassed 0
-  let pso_total 0
-  let abc_total 0
-  let pso_wins 0
-  let abc_wins 0
-
+  let player1_total 0
+  let player2_total 0
+  let player1_wins 0
+  let player2_wins 0
+  
   while [roundspassed < Rounds]
   [
     set roundspassed roundspassed + 1
@@ -18,40 +20,112 @@ to tournament
     setup ;clears all globals!
     
     do_round
-    set pso_total pso_total + pso_lastround
-    set abc_total abc_total + abc_lastround
+    set player1_total player1_total + player1_lastround
+    set player2_total player2_total + player2_lastround
     
-    if pso_lastround > abc_lastround
+    if player1_lastround > player2_lastround
     [ 
-      set pso_wins pso_wins + 1
+      set player1_wins player1_wins + 1
     ]
-    if abc_lastround > pso_lastround
+    if player2_lastround > player1_lastround
     [ 
-      set abc_wins abc_wins + 1
+      set player2_wins player2_wins + 1
     ]
     
   ] 
   
-  print (word "PSO total is: " pso_total  " ABC total is: " abc_total)
-  print "number of pso wins is"
-  print pso_wins
+  print (word "Player 1 total is: " player1_total  "  Player 2 total is: " player2_total)
+  print "number of player 1 wins is"
+  print player1_wins
   print "number of rounds passed is"
   print roundspassed
 end
 
-to do_round
+to do_round 
   
-  repeat no_ticks [ psa ]
-  ask particles[
-    set pso_lastround item 2 total_best
-  ]
-    
-  repeat no_ticks [ abc ]  
-  ask employees
+  if Player1 = "PSO"
   [
-      set abc_lastround best_found_patch_global
+    repeat no_ticks [ psa ]
+    ask particles[
+      set player1_lastround item 2 total_best
+    ]
   ]
   
-   
-  print (word "PSO score: " pso_lastround  " ABC score: " abc_lastround)
+  if Player1 = "ABC"
+  [
+    repeat no_ticks [ abc ]  
+    ask employees
+    [
+      set player1_lastround best_found_patch_global
+    ]
+  ]
+  
+  ifelse Player2 = "PSO" and Player1 = "PSO" ; use the extra set of variables only if both player use the same strategy
+  [
+    ;if both player use PSO, set the variables used by psa to the variables for p2 specified by user
+
+    let num-particlesP1 num-particles
+    let c0Player1 c0
+    let c1Player1 c1
+    let c2Player1 c2
+    
+    set num-particles num-particlesP2
+    set c0 c0Player2
+    set c1 c1Player2
+    set c2 c2Player2
+        
+    repeat no_ticks [ psa ]
+    ask particles[
+      set player2_lastround item 2 total_best
+    ]
+    ;reset variables  st player 1 can do psa with own variables on next round  
+    set num-particles num-particlesP1
+    set c0 c0Player1
+    set c1 c1Player1
+    set c2 c2Player1    
+  ]
+  
+  [;the else case of ifelse P2 PSO and P1 PSO --> not(P2 PSO and P1 PSO)
+    if Player2 = "PSO" ;; This is the case if ONLY P2 is PSO
+    [
+      ; use normal variables and call pso
+      repeat no_ticks [ psa ]
+      ask particles[
+        set player2_lastround item 2 total_best
+      ]      
+    ]
+  ]
+  
+  
+  ifelse Player2 = "ABC" and Player1 = "ABC" ; use the extra set of variables only if both player use the same strategy
+  [
+    let no_beesP1 no_bees
+    let localsearch_stepsP1 localsearch_steps
+    
+    set no_bees no_beesP2
+    set localsearch_steps localsearch_stepsP2
+    
+    repeat no_ticks [ abc ]  
+    ask employees
+    [
+      set player2_lastround best_found_patch_global
+    ]
+    
+    set no_bees no_beesP1
+    set localsearch_steps localsearch_stepsP1
+  
+    
+  ]
+  [;the else case of ifelse P2 ABC and P1 ABC
+    if Player2 = "ABC" ;; This is the case if ONLY P2 is ABC
+    [
+      ; use normal variables and call pso
+      repeat no_ticks [ abc ]  
+      ask employees
+      [
+        set player2_lastround best_found_patch_global
+      ]     
+    ]
+  ] 
+  print (word "Player 1 score: " player1_lastround  " Player 2 score: " player2_lastround)
 end

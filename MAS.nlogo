@@ -1,4 +1,4 @@
-__includes ["abc.nls"]
+__includes ["abc local.nls"]
 
 patches-own
 [
@@ -72,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-9.9
+3.9
 0.1
 1
 NIL
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-0.0
+9.0
 1
 1
 NIL
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-5.0
+0.51
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.3
+0.43
 0.01
 1
 NIL
@@ -227,7 +227,7 @@ c0
 c0
 0
 1
-0.17
+0.25
 0.01
 1
 NIL
@@ -259,7 +259,7 @@ Rounds
 Rounds
 0
 100
-100.0
+15.0
 1
 1
 NIL
@@ -274,7 +274,7 @@ no_bees
 no_bees
 0
 50
-6.0
+10.0
 2
 1
 NIL
@@ -289,7 +289,7 @@ no_ticks
 no_ticks
 0
 100
-100.0
+16.0
 1
 1
 NIL
@@ -304,7 +304,7 @@ localsearch_steps
 localsearch_steps
 0
 10
-3.0
+1.0
 1
 1
 NIL
@@ -327,6 +327,116 @@ false
 "" ""
 PENS
 "default" 0.05 0 -16777216 true "" "plot best_found_patch_global"
+
+CHOOSER
+255
+460
+393
+505
+Player1
+Player1
+"ABC" "PSO"
+1
+
+CHOOSER
+406
+461
+544
+506
+Player2
+Player2
+"ABC" "PSO"
+1
+
+SLIDER
+256
+515
+428
+548
+num-particlesP2
+num-particlesP2
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+256
+553
+428
+586
+c0Player2
+c0Player2
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+255
+630
+427
+663
+c1Player2
+c1Player2
+0
+1
+0.26
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+256
+592
+428
+625
+c2Player2
+c2Player2
+0
+1
+0.19
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+442
+513
+614
+546
+no_beesP2
+no_beesP2
+0
+50
+8.0
+2
+1
+NIL
+HORIZONTAL
+
+SLIDER
+443
+554
+615
+587
+localsearch_stepsP2
+localsearch_stepsP2
+0
+10
+1.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
