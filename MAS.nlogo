@@ -72,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-0.0
+5.2
 0.1
 1
 NIL
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-0.0
+50.0
 1
 1
 NIL
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-0.0
+0.6
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-0.05
+2.6
 0.01
 1
 NIL
@@ -227,7 +227,7 @@ c0
 c0
 0
 1
-0.0
+0.3
 0.01
 1
 NIL
@@ -448,6 +448,23 @@ psa_best
 17
 1
 11
+
+BUTTON
+698
+11
+824
+44
+Tune Parameters
+tune
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
