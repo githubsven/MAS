@@ -71,6 +71,7 @@ to init
 end
 
 to abc
+  set best_found_patch_global 0
   go
   checkFitnessImprovement
   if best_found_patch_global = [score] of optimum or no_fitness_improvement_counter >= 500

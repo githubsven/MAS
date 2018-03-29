@@ -37,8 +37,10 @@ to tournament
   ] 
   
   print (word "Player 1 total is: " player1_total  "  Player 2 total is: " player2_total)
-  print "number of player 1 wins is"
+  print "number of player 1 wins is" 
   print player1_wins
+  print "number of player 2 wins is"
+  print player2_wins
   print "number of rounds passed is"
   print roundspassed
 end
