@@ -7,9 +7,11 @@ globals
   
   abc_ls_steps_list
   
-  ;;variables
-  pt_round_nr
+  ;;variables best
   pt_pso_best
+  pt_abc_best
+  
+  pt_round_nr
   pt_set_score
 ]
 
@@ -35,8 +37,29 @@ end
 to set_variables
   ;; pt_pso_best :: (c0, c1, c2, score)
   set pt_pso_best (list 0 0 0 100000000000)
+  ;; pt_abc_best :: (ls_steps, score)
+  set pt_abc_best (list 0 100000000000)
   
 end
+
+to tune_abc
+	foreach abc_ls_steps_list [ts_ls_step ->
+		set pt_round_nr 1
+		set pt_set_score 0
+		while [pt_round_nr < 250] [
+			setup_abc_round ts_ls_step
+			do_abc_round
+			set pt_round_nr pt_round_nr + 1
+		]
+		
+		if (item 1 pt_abc_best >= pt_set_score) [
+			set pt_abc_best (list ts_ls_step pt_set_score)
+			print (word "ABC: New best score: " pt_abc_best)
+		]
+		set abc_ls_steps_list (list (item 0 pt_abc_best))
+    ]
+end
+		
 
 to tune_pso
   foreach pso_c0_list [ts_c0 -> 
@@ -52,7 +75,7 @@ to tune_pso
         
         if (item 3 pt_pso_best >= pt_set_score) [
           set pt_pso_best (list ts_c0 ts_c1 ts_c2 pt_set_score)
-          print (word "New best score: " pt_pso_best)
+          print (word "PSO: New best score: " pt_pso_best)
         ]
       ]
       set pso_c2_list (list (item 2 pt_pso_best))
@@ -60,6 +83,53 @@ to tune_pso
     set pso_c1_list (list (item 1 pt_pso_best))
   ]
   set c0 item 0 pt_pso_best
+end
+
+
+to setup_abc_round [#abc_ls_steps]
+
+	clear-turtles
+	
+	create_problem_space
+	
+	set no_fitness_improvement_counter 0
+	set no_bees 10
+	set no_onlookers no_bees / 2
+	set no_employees no_bees / 2
+	if no_bees > 0 [
+		set no_scouts 1
+		]
+	create-onlookers no_onlookers[ set color yellow ]
+	create-scouts no_scouts [ set color blue ]
+	create-employees no_employees[
+    set foodsource_found false
+    set color red
+    set size 1.5
+    set xcor 0
+    set ycor 0
+    set best_found_patch_personal 0	
+	]
+	
+	set localsearch_steps #abc_ls_steps
+	
+	  create-foodsources no_employees [set resources random 10]; Create a food source for every employed bee
+	ask foodsources [ 
+		set shape "x" 
+		set color red 
+		setxy random-pxcor random-pycor 
+		set resources [round(score * 50)] of patch xcor ycor 
+	  ]
+  
+  let i (no_onlookers + no_scouts)
+  let j (no_onlookers + no_scouts + no_employees)
+  repeat no_employees [
+    ask employee i [
+      set foodsource_x [ pxcor ] of foodsource j
+      set foodsource_y [ pycor ] of foodsource j
+    ]
+    set i i + 1
+    set j j + 1
+  ]
 end
 
 to setup_pso_round [#pso_c0 #pso_c1 #pso_c2]
@@ -84,6 +154,40 @@ to setup_pso_round [#pso_c0 #pso_c1 #pso_c2]
   
 end
 
+to do_abc_round
+	let nr_steps 0
+	loop [
+		if nr_steps > 20 [stop]
+    let optimum_found false
+		set no_fitness_improvement_counter no_fitness_improvement_counter + 1
+		if count employees > 0 [
+		ask max-one-of employees [best_found_patch_personal]
+		[
+		  if best_found_patch_global < best_found_patch_personal
+		  [
+			set best_found_patch_global best_found_patch_personal
+			set no_fitness_improvement_counter 0
+		  ]
+		]
+	  ]
+
+	  if best_found_patch_global = 1 [
+        set pt_set_score pt_set_score + nr_steps
+        set optimum_found true
+    ]
+    if optimum_found [stop]
+	  abc
+	  tick
+	  set nr_steps nr_steps + 1
+	  
+	  ]
+	  
+	  if (nr_steps > 20)[
+		set pt_set_score pt_set_score + nr_steps
+	  ]
+end
+
+
 to do_pso_round
   let nr_steps 0
   loop [
@@ -103,7 +207,4 @@ to do_pso_round
   if (nr_steps > 20) [
     set pt_set_score pt_set_score + nr_steps
   ]
-end
-
-to tune_abc
 end
