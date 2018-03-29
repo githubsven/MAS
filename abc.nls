@@ -73,6 +73,8 @@ end
 to abc
   go
   checkFitnessImprovement
+  if best_found_patch_global = [score] of optimum or no_fitness_improvement_counter >= 500
+    [ stop ]
   tick
 end
 
@@ -88,9 +90,6 @@ if count employees > 0 [
       ]
     ]
   ]
-
-  if best_found_patch_global = [score] of optimum or no_fitness_improvement_counter >= 50
-    [ stop ]
 end
 
 to recruitOnlookers
