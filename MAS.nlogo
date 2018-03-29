@@ -72,7 +72,7 @@ searchspace-smoothness
 searchspace-smoothness
 0
 10
-5.7
+5.0
 0.1
 1
 NIL
@@ -138,7 +138,7 @@ num-particles
 num-particles
 0
 100
-31.0
+25.0
 1
 1
 NIL
@@ -180,7 +180,7 @@ c1
 c1
 0
 5
-0.8
+0.2
 0.01
 1
 NIL
@@ -195,7 +195,7 @@ c2
 c2
 0
 5
-4.8
+4.6
 0.01
 1
 NIL
@@ -289,7 +289,7 @@ no_ticks
 no_ticks
 0
 100
-30.0
+31.0
 1
 1
 NIL
@@ -304,7 +304,7 @@ localsearch_steps
 localsearch_steps
 0
 10
-10.0
+1.0
 1
 1
 NIL
@@ -336,7 +336,7 @@ CHOOSER
 Player1
 Player1
 "ABC" "PSO"
-0
+1
 
 CHOOSER
 406
@@ -346,7 +346,7 @@ CHOOSER
 Player2
 Player2
 "ABC" "PSO"
-0
+1
 
 SLIDER
 256
@@ -372,7 +372,7 @@ c0Player2
 c0Player2
 0
 1
-0.25
+0.94
 0.01
 1
 NIL
@@ -383,11 +383,11 @@ SLIDER
 630
 427
 663
-c1Player2
-c1Player2
+c2Player2
+c2Player2
 0
 5
-3.2
+5.0
 0.01
 1
 NIL
@@ -398,11 +398,11 @@ SLIDER
 592
 428
 625
-c2Player2
-c2Player2
+c1Player2
+c1Player2
 0
 5
-1.0
+5.0
 0.01
 1
 NIL
@@ -417,7 +417,7 @@ no_beesP2
 no_beesP2
 0
 50
-4.0
+40.0
 2
 1
 NIL

@@ -22,6 +22,7 @@ to tournament
     setup ;clears all globals!
     
     do_round
+    
     set player1_total player1_total + player1_lastround
     set player2_total player2_total + player2_lastround
     
@@ -49,6 +50,7 @@ to do_round
   
   if Player1 = "PSO"
   [
+    init_pso
     repeat no_ticks [ psa ]
     ask particles[
       set player1_lastround item 2 total_best
@@ -64,7 +66,7 @@ to do_round
     ]
   ]
   
-  ifelse Player2 = "PSO" and Player1 = "PSO" ; use the extra set of variables only if both player use the same strategy
+  ifelse (Player2 = "PSO") and (Player1 = "PSO") ; use the extra set of variables only if both player use the same strategy
   [
     ;if both player use PSO, set the variables used by psa to the variables for p2 specified by user
 
@@ -78,6 +80,7 @@ to do_round
     set c1 c1Player2
     set c2 c2Player2
         
+    init_pso
     repeat no_ticks [ psa ]
     ask particles[
       set player2_lastround item 2 total_best
@@ -90,7 +93,7 @@ to do_round
   ]
   
   [;the else case of ifelse P2 PSO and P1 PSO --> not(P2 PSO and P1 PSO)
-    if Player2 = "PSO" ;; This is the case if ONLY P2 is PSO
+    if (Player2 = "PSO") and (Player1 = "ABC") ;; This is the case if ONLY P2 is PSO
     [
       ; use normal variables and call pso
       repeat no_ticks [ psa ]
@@ -101,9 +104,9 @@ to do_round
   ]
   
   
-  ifelse Player2 = "ABC" and Player1 = "ABC" ; use the extra set of variables only if both player use the same strategy
+  ifelse (Player2 = "ABC") and (Player1 = "ABC") ; use the extra set of variables only if both player use the same strategy
   [
-    let no_beesP1 no_bees
+    let no_beesP1 no_bees 
     let localsearch_stepsP1 localsearch_steps
     
     set no_bees no_beesP2
@@ -121,15 +124,16 @@ to do_round
     
   ]
   [;the else case of ifelse P2 ABC and P1 ABC
-    if Player2 = "ABC" ;; This is the case if ONLY P2 is ABC
+    if (Player2 = "ABC") and (Player1 = "PSO") ;; This is the case if ONLY P2 is ABC
     [
-      ; use normal variables and call pso
+      ; use normal variables and call abc
       repeat no_ticks [ abc ]  
       ask employees
       [
         set player2_lastround best_found_patch_global
       ]     
     ]
-  ] 
+  ]
+  
   print (word "Player 1 score: " player1_lastround  " Player 2 score: " player2_lastround)
 end
